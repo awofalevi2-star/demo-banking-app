@@ -67,38 +67,50 @@
     /* MAIN APP */
     #main-app { display: none; min-height: 100vh; flex-direction: column; }
 
+    /* Header Home - mirip BRIMO */
     .header {
       background: linear-gradient(135deg, #0050b3, #0070d4);
-      color: white; padding: 16px 16px 20px; border-radius: 0 0 24px 24px;
+      color: white; padding: 14px 16px 18px;
     }
-    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .greeting { font-size: 13px; opacity: 0.9; }
-    .user-name { font-size: 16px; font-weight: 700; }
+    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .header-left { display: flex; align-items: center; gap: 8px; }
+    .header-left .logo { font-weight: 800; font-size: 16px; }
+    .greeting { font-size: 13px; opacity: 0.95; }
+    .user-name { font-size: 15px; font-weight: 700; }
     .header-actions { display: flex; gap: 8px; }
     .icon-btn {
-      width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 15px;
+      width: 34px; height: 34px; background: rgba(255,255,255,0.15); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
     }
+
     .balance-card {
-      background: rgba(255,255,255,0.13); border-radius: 14px; padding: 14px 16px;
+      background: rgba(255,255,255,0.12); border-radius: 14px; padding: 14px 16px;
     }
-    .balance-label { font-size: 12px; opacity: 0.85; margin-bottom: 4px; }
-    .balance-amount { font-size: 24px; font-weight: 700; }
-    .balance-info { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; opacity: 0.85; }
+    .balance-label { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
+    .balance-amount { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .balance-bottom {
+      display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+    }
+    .semua-rekening {
+      font-size: 12px; font-weight: 600; color: white; text-decoration: none;
+      display: flex; align-items: center; gap: 4px; opacity: 0.95;
+    }
 
-    .content { flex: 1; padding: 16px 14px 95px; overflow-y: auto; }
+    .content { flex: 1; padding: 14px 14px 95px; overflow-y: auto; }
 
-    .quick-menu {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 6px;
-      background: white; border-radius: 14px; padding: 16px 8px; margin-bottom: 18px;
+    /* Quick Menu atas */
+    .quick-top {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 6px;
+      background: white; border-radius: 14px; padding: 14px 8px; margin-bottom: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     }
     .menu-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
     .menu-icon {
-      width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
       font-size: 18px; color: white;
     }
     .menu-item span { font-size: 11px; font-weight: 500; text-align: center; }
+
     .bg-blue { background: linear-gradient(135deg, #0050b3, #0070d4); }
     .bg-green { background: linear-gradient(135deg, #00a86b, #00c853); }
     .bg-orange { background: linear-gradient(135deg, #ff9800, #ffb300); }
@@ -107,6 +119,21 @@
     .bg-indigo { background: linear-gradient(135deg, #3949ab, #5c6bc0); }
     .bg-pink { background: linear-gradient(135deg, #d81b60, #ec407a); }
     .bg-red { background: linear-gradient(135deg, #e53935, #f44336); }
+
+    /* Banner promo */
+    .promo-row { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
+    .promo-card {
+      min-width: 160px; background: linear-gradient(135deg, #0050b3, #00a3e0);
+      border-radius: 12px; padding: 12px 14px; color: white; font-size: 12px;
+    }
+    .promo-card h4 { font-size: 13px; margin-bottom: 3px; }
+
+    /* Menu bawah */
+    .quick-bottom {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 6px;
+      background: white; border-radius: 14px; padding: 14px 8px; margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
 
     .section-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
     .section-title a { font-size: 12px; color: var(--primary); text-decoration: none; }
@@ -128,15 +155,15 @@
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 100%; max-width: 430px; background: white;
-      display: flex; justify-content: space-around; padding: 8px 0 12px;
+      display: flex; justify-content: space-around; padding: 6px 0 10px;
       box-shadow: 0 -3px 16px rgba(0,0,0,0.06); border-radius: 16px 16px 0 0; z-index: 100;
     }
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--muted); cursor: pointer; padding: 4px 6px; }
     .nav-item.active { color: var(--primary); font-weight: 600; }
     .nav-item i { font-size: 20px; }
     .nav-item.qris-nav {
-      width: 52px; height: 52px; background: var(--primary); border-radius: 50%;
-      color: white !important; margin-top: -18px; justify-content: center; box-shadow: 0 4px 12px rgba(0,80,179,0.35);
+      width: 50px; height: 50px; background: var(--primary); border-radius: 50%;
+      color: white !important; margin-top: -16px; justify-content: center; box-shadow: 0 4px 12px rgba(0,80,179,0.35);
     }
     .nav-item.qris-nav i { font-size: 22px; }
 
@@ -154,7 +181,33 @@
       display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
 
-    /* Form */
+    /* Semua Rekening */
+    .total-saldo-box {
+      background: white; margin: 14px; border-radius: 14px; padding: 18px; text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .total-saldo-box .label { font-size: 13px; color: var(--muted); }
+    .total-saldo-box .amount { font-size: 24px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+
+    .rekening-list { padding: 0 14px 20px; }
+    .rekening-item {
+      background: white; border-radius: 14px; padding: 16px; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .rekening-icon {
+      width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #0050b3, #0070d4);
+      display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; flex-shrink: 0;
+    }
+    .rekening-info { flex: 1; min-width: 0; }
+    .rekening-name { font-size: 14px; font-weight: 700; }
+    .rekening-number { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .rekening-saldo { font-size: 15px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+    .rekening-badge {
+      font-size: 10px; background: #e8f0fe; color: var(--primary); padding: 2px 8px;
+      border-radius: 20px; font-weight: 600;
+    }
+
+    /* Form & Transfer styles (simplified) */
     .form-card { background: white; margin: 14px; border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
     .form-card .form-group { margin-bottom: 14px; }
     .form-card label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; display: block; }
@@ -163,7 +216,6 @@
     }
     .form-card input:focus, .form-card select:focus { border-color: var(--primary); }
 
-    /* Transfer List */
     .tf-tabs { display: flex; background: white; border-bottom: 1px solid #eee; }
     .tf-tab { flex: 1; text-align: center; padding: 12px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
     .tf-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
@@ -187,21 +239,6 @@
       border-radius: 12px; font-size: 15px; font-weight: 600; text-align: center; cursor: pointer;
     }
 
-    /* Confirm */
-    .confirm-card { background: white; margin: 14px; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
-    .confirm-row { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
-    .confirm-row:last-of-type { border-bottom: none; }
-    .confirm-label { color: var(--muted); }
-    .confirm-value { font-weight: 600; text-align: right; max-width: 60%; }
-    .confirm-value.highlight { color: var(--primary); font-size: 15px; }
-    .confirm-total {
-      background: #f0f7ff; border-radius: 10px; padding: 12px 14px; margin-top: 14px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .confirm-total span { font-size: 13px; color: var(--muted); }
-    .confirm-total strong { font-size: 17px; color: var(--primary); }
-
-    /* Recipient Card on Nominal */
     .recipient-card {
       background: white; margin: 14px; border-radius: 12px; padding: 14px 16px;
       display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.04);
@@ -213,7 +250,18 @@
     .recipient-name { font-size: 15px; font-weight: 700; }
     .recipient-detail { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    /* PIN */
+    .confirm-card { background: white; margin: 14px; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+    .confirm-row { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+    .confirm-row:last-of-type { border-bottom: none; }
+    .confirm-label { color: var(--muted); }
+    .confirm-value { font-weight: 600; text-align: right; max-width: 60%; }
+    .confirm-total {
+      background: #f0f7ff; border-radius: 10px; padding: 12px 14px; margin-top: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .confirm-total span { font-size: 13px; color: var(--muted); }
+    .confirm-total strong { font-size: 17px; color: var(--primary); }
+
     .pin-container { padding: 36px 24px; text-align: center; }
     .pin-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
     .pin-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
@@ -230,10 +278,7 @@
     .pin-key.empty { background: transparent; }
     .pin-key.action { font-size: 18px; color: var(--muted); }
 
-    /* Receipt */
-    .receipt-header {
-      background: var(--primary); color: white; text-align: center; padding: 30px 20px 40px;
-    }
+    .receipt-header { background: var(--primary); color: white; text-align: center; padding: 30px 20px 40px; }
     .receipt-check {
       width: 60px; height: 60px; background: white; border-radius: 50%;
       display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
@@ -254,7 +299,6 @@
     .btn-share { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
     .btn-done { background: var(--primary); border: none; color: white; }
 
-    /* Profile */
     .profile-card { background: white; margin: 14px; border-radius: 14px; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
     .avatar { width: 68px; height: 68px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 26px; color: white; font-weight: 700; }
     .profile-name { font-size: 17px; font-weight: 700; }
@@ -267,7 +311,6 @@
     .menu-list-item .arrow { color: #d1d5db; }
     .logout-btn { margin: 0 14px 30px; padding: 13px; background: #fdecea; color: var(--danger); border: none; border-radius: 12px; font-size: 14px; font-weight: 600; width: calc(100% - 28px); cursor: pointer; }
 
-    /* Toast & Loading */
     .toast {
       position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-80px);
       background: #1a1a2e; color: white; padding: 10px 20px; border-radius: 30px;
@@ -286,14 +329,13 @@
 <body>
 <div id="app-wrapper">
 
-  <!-- ========== LOGIN ========== -->
+  <!-- LOGIN -->
   <div id="login-screen">
     <div class="login-illustration">
       <i class="fas fa-university"></i>
       <h2>Yuk! mulai transaksimu<br>bersama BRImo Demo</h2>
       <p>Aplikasi demo mobile banking</p>
     </div>
-
     <div class="login-bottom">
       <h3>Login</h3>
       <div class="saved-user">
@@ -304,38 +346,47 @@
         <input type="password" id="login-pass" placeholder="Password" value="123456" oninput="checkLoginBtn()" />
       </div>
       <button class="btn-primary" id="login-btn" onclick="doLogin()">Login</button>
-      <p class="demo-hint">Password demo: <b>123456</b> &nbsp;|&nbsp; PIN: <b>123456</b></p>
+      <p class="demo-hint">Password: <b>123456</b> &nbsp;|&nbsp; PIN: <b>123456</b></p>
     </div>
   </div>
 
-  <!-- ========== MAIN APP ========== -->
+  <!-- MAIN APP -->
   <div id="main-app">
 
     <!-- HOME -->
     <div id="home-screen" class="screen active">
       <div class="header">
         <div class="header-top">
-          <div>
-            <div class="greeting">Selamat datang,</div>
-            <div class="user-name">Pengguna Demo</div>
+          <div class="header-left">
+            <div>
+              <div class="greeting">Selamat Siang,</div>
+              <div class="user-name">Pengguna Demo</div>
+            </div>
           </div>
           <div class="header-actions">
             <div class="icon-btn" onclick="showToast('Tidak ada notifikasi')"><i class="fas fa-bell"></i></div>
-            <div class="icon-btn" onclick="showScreen('profile')"><i class="fas fa-user"></i></div>
+            <div class="icon-btn" onclick="showToast('Customer Service (demo)')"><i class="fas fa-headset"></i></div>
+            <div class="icon-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></div>
           </div>
         </div>
+
         <div class="balance-card">
           <div class="balance-label">Saldo Rekening Utama</div>
-          <div class="balance-amount" id="balance">Rp 12.750.000</div>
-          <div class="balance-info">
-            <span>1234 5678 9012</span>
-            <span onclick="toggleSaldo()" style="cursor:pointer"><i class="fas fa-eye" id="eye-icon"></i></span>
+          <div class="balance-amount" id="balance">••••••••</div>
+          <div class="balance-bottom">
+            <span onclick="toggleSaldo()" style="cursor:pointer;font-size:13px">
+              <i class="fas fa-eye" id="eye-icon"></i>
+            </span>
+            <a href="#" class="semua-rekening" onclick="showScreen('rekening');return false;">
+              Semua Rekeningmu <i class="fas fa-chevron-right" style="font-size:10px"></i>
+            </a>
           </div>
         </div>
       </div>
 
       <div class="content">
-        <div class="quick-menu">
+        <!-- Menu Atas -->
+        <div class="quick-top">
           <div class="menu-item" onclick="showScreen('transfer')">
             <div class="menu-icon bg-blue"><i class="fas fa-paper-plane"></i></div>
             <span>Transfer</span>
@@ -352,21 +403,53 @@
             <div class="menu-icon bg-purple"><i class="fas fa-mobile-alt"></i></div>
             <span>Pulsa/Data</span>
           </div>
+        </div>
+
+        <!-- Promo -->
+        <div class="promo-row">
+          <div class="promo-card">
+            <h4>Qita Hadir Lebih Cepat</h4>
+            <p>Pindah ke Qita sekarang</p>
+          </div>
+          <div class="promo-card" style="background:linear-gradient(135deg,#00a86b,#00c853)">
+            <h4>Konversi Valas</h4>
+            <p>Raih rewards menarik</p>
+          </div>
+        </div>
+
+        <!-- Menu Bawah -->
+        <div class="quick-bottom">
           <div class="menu-item" onclick="showToast('Fitur Top Up (demo)')">
-            <div class="menu-icon bg-teal"><i class="fas fa-wallet"></i></div>
+            <div class="menu-icon bg-teal"><i class="fas fa-plus-circle"></i></div>
             <span>Top Up</span>
           </div>
+          <div class="menu-item" onclick="showToast('Fitur BRIZZI (demo)')">
+            <div class="menu-icon bg-indigo"><i class="fas fa-credit-card"></i></div>
+            <span>BRIZZI</span>
+          </div>
           <div class="menu-item" onclick="showToast('Fitur Tagihan (demo)')">
-            <div class="menu-icon bg-indigo"><i class="fas fa-file-invoice-dollar"></i></div>
+            <div class="menu-icon bg-pink"><i class="fas fa-file-invoice-dollar"></i></div>
             <span>Tagihan</span>
           </div>
+          <div class="menu-item" onclick="showScreen('transfer')">
+            <div class="menu-icon bg-blue"><i class="fas fa-exchange-alt"></i></div>
+            <span>Transfer</span>
+          </div>
           <div class="menu-item" onclick="showToast('Fitur Lifestyle (demo)')">
-            <div class="menu-icon bg-pink"><i class="fas fa-shopping-bag"></i></div>
+            <div class="menu-icon bg-orange"><i class="fas fa-shopping-bag"></i></div>
             <span>Lifestyle</span>
           </div>
-          <div class="menu-item" onclick="showScreen('history')">
-            <div class="menu-icon bg-red"><i class="fas fa-history"></i></div>
-            <span>Mutasi</span>
+          <div class="menu-item" onclick="showToast('Fitur Setor & Tarik (demo)')">
+            <div class="menu-icon bg-green"><i class="fas fa-university"></i></div>
+            <span>Setor & Tarik</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Junior (demo)')">
+            <div class="menu-icon bg-purple"><i class="fas fa-child"></i></div>
+            <span>Junior</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Kartu Kredit (demo)')">
+            <div class="menu-icon bg-red"><i class="fas fa-credit-card"></i></div>
+            <span>Kartu Kredit</span>
           </div>
         </div>
 
@@ -378,7 +461,43 @@
       </div>
     </div>
 
-    <!-- ========== TRANSFER LIST ========== -->
+    <!-- SEMUA REKENING -->
+    <div id="rekening-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Info Saldo</h2>
+      </div>
+
+      <div class="total-saldo-box">
+        <div class="label">Total Saldo</div>
+        <div class="amount" id="total-saldo">Rp 16.377.878</div>
+      </div>
+
+      <div class="rekening-list">
+        <div class="rekening-item">
+          <div class="rekening-icon"><i class="fas fa-university"></i></div>
+          <div class="rekening-info">
+            <div class="rekening-name">SUSMAIYANTI <span class="rekening-badge">Utama</span></div>
+            <div class="rekening-number">0266 0102 5105 538</div>
+            <div class="rekening-saldo">Rp 15.926.749</div>
+          </div>
+        </div>
+        <div class="rekening-item">
+          <div class="rekening-icon" style="background:linear-gradient(135deg,#00a86b,#00c853)"><i class="fas fa-wallet"></i></div>
+          <div class="rekening-info">
+            <div class="rekening-name">SUSMAIYANTI</div>
+            <div class="rekening-number">0266 0113 1785 501</div>
+            <div class="rekening-saldo">Rp 451.129</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 14px 30px">
+        <button class="btn-primary" onclick="showToast('Fitur Buka Rekening Baru (demo)')">+ Buka Rekening Baru</button>
+      </div>
+    </div>
+
+    <!-- TRANSFER LIST -->
     <div id="transfer-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
@@ -389,18 +508,14 @@
         <div class="tf-tab" onclick="showToast('Fitur Internasional (demo)')">Internasional</div>
         <div class="tf-tab" onclick="showToast('Fitur Emas (demo)')">Emas</div>
       </div>
-
       <div style="padding:14px 14px 0;font-size:13px;font-weight:600;color:var(--muted)">Transfer Terakhir</div>
-      <div class="saved-list" id="recent-transfer-list">
-        <!-- filled by JS -->
-      </div>
-
+      <div class="saved-list" id="recent-transfer-list"></div>
       <button class="btn-tambah" onclick="showScreen('new-recipient')">
         <i class="fas fa-plus" style="margin-right:6px"></i> Tambah Penerima Baru
       </button>
     </div>
 
-    <!-- ========== NEW RECIPIENT ========== -->
+    <!-- NEW RECIPIENT -->
     <div id="new-recipient-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('transfer')"><i class="fas fa-arrow-left"></i></div>
@@ -418,7 +533,6 @@
             <option value="BANK BCA">BANK BCA</option>
             <option value="BANK MANDIRI">BANK MANDIRI</option>
             <option value="BANK BNI">BANK BNI</option>
-            <option value="BANK BTN">BANK BTN</option>
             <option value="SEABANK">SEABANK</option>
             <option value="BANK JAGO">BANK JAGO</option>
           </select>
@@ -427,20 +541,16 @@
           <label>Nomor Rekening / Alias</label>
           <input type="text" id="tf-rek" placeholder="Masukkan nomor rekening" inputmode="numeric" oninput="checkRecipientBtn()" />
         </div>
-        <p style="font-size:11px;color:var(--muted);margin-top:-6px;margin-bottom:14px">
-          <i class="fas fa-info-circle"></i> Masukkan nomor rekening tujuan dengan benar
-        </p>
         <button class="btn-primary" id="btn-lanjut-recipient" disabled onclick="goToNominal()">Lanjutkan</button>
       </div>
     </div>
 
-    <!-- ========== NOMINAL ========== -->
+    <!-- NOMINAL -->
     <div id="nominal-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('new-recipient')"><i class="fas fa-arrow-left"></i></div>
         <h2>Masukkan Nominal</h2>
       </div>
-
       <div class="recipient-card">
         <div class="recipient-avatar" id="nom-avatar">S</div>
         <div>
@@ -448,7 +558,6 @@
           <div class="recipient-detail" id="nom-detail">-</div>
         </div>
       </div>
-
       <div class="form-card">
         <div class="form-group">
           <label>Nominal Transfer</label>
@@ -459,14 +568,11 @@
           <label>Catatan (Opsional)</label>
           <input type="text" id="tf-note" placeholder="Tulis catatan" maxlength="40" />
         </div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:14px">
-          Sumber Dana: <strong>1234 5678 9012</strong> &nbsp;•&nbsp; <span id="nom-saldo">Rp 12.750.000</span>
-        </div>
         <button class="btn-primary" id="btn-lanjut-nominal" disabled onclick="goToConfirm()">Lanjutkan</button>
       </div>
     </div>
 
-    <!-- ========== KONFIRMASI ========== -->
+    <!-- KONFIRMASI -->
     <div id="confirm-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('nominal')"><i class="fas fa-arrow-left"></i></div>
@@ -478,35 +584,17 @@
           <div style="font-size:17px;font-weight:700;margin-top:4px" id="cf-name">-</div>
           <div style="font-size:12px;color:var(--muted);margin-top:2px" id="cf-detail">-</div>
         </div>
-        <div class="confirm-row">
-          <span class="confirm-label">Bank Tujuan</span>
-          <span class="confirm-value" id="cf-bank">-</span>
-        </div>
-        <div class="confirm-row">
-          <span class="confirm-label">No. Rekening</span>
-          <span class="confirm-value" id="cf-rek">-</span>
-        </div>
-        <div class="confirm-row">
-          <span class="confirm-label">Nominal</span>
-          <span class="confirm-value" id="cf-amount">-</span>
-        </div>
-        <div class="confirm-row">
-          <span class="confirm-label">Biaya Admin</span>
-          <span class="confirm-value" id="cf-admin">Rp 0</span>
-        </div>
-        <div class="confirm-row">
-          <span class="confirm-label">Catatan</span>
-          <span class="confirm-value" id="cf-note">-</span>
-        </div>
-        <div class="confirm-total">
-          <span>Total</span>
-          <strong id="cf-total">Rp 0</strong>
-        </div>
+        <div class="confirm-row"><span class="confirm-label">Bank Tujuan</span><span class="confirm-value" id="cf-bank">-</span></div>
+        <div class="confirm-row"><span class="confirm-label">No. Rekening</span><span class="confirm-value" id="cf-rek">-</span></div>
+        <div class="confirm-row"><span class="confirm-label">Nominal</span><span class="confirm-value" id="cf-amount">-</span></div>
+        <div class="confirm-row"><span class="confirm-label">Biaya Admin</span><span class="confirm-value" id="cf-admin">Rp 0</span></div>
+        <div class="confirm-row"><span class="confirm-label">Catatan</span><span class="confirm-value" id="cf-note">-</span></div>
+        <div class="confirm-total"><span>Total</span><strong id="cf-total">Rp 0</strong></div>
         <button class="btn-primary" style="margin-top:18px" onclick="goToPin()">Konfirmasi</button>
       </div>
     </div>
 
-    <!-- ========== PIN ========== -->
+    <!-- PIN -->
     <div id="pin-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('confirm')"><i class="fas fa-arrow-left"></i></div>
@@ -536,7 +624,7 @@
       </div>
     </div>
 
-    <!-- ========== RECEIPT ========== -->
+    <!-- RECEIPT -->
     <div id="receipt-screen" class="screen">
       <div class="receipt-header">
         <div class="receipt-check"><i class="fas fa-check"></i></div>
@@ -550,7 +638,6 @@
         <div class="receipt-row"><span class="label">Tujuan</span><span class="value" id="rc-tujuan">-</span></div>
         <div class="receipt-row"><span class="label">Bank</span><span class="value" id="rc-bank">-</span></div>
         <div class="receipt-row"><span class="label">Catatan</span><span class="value" id="rc-note">-</span></div>
-        <div class="receipt-row"><span class="label">Biaya Admin</span><span class="value" id="rc-admin">Rp 0</span></div>
         <div class="receipt-row"><span class="label">Status</span><span class="value" style="color:var(--success)">Berhasil</span></div>
       </div>
       <div class="receipt-actions">
@@ -582,13 +669,13 @@
         <div class="profile-email">demo@email.com</div>
       </div>
       <div class="menu-list">
-        <div class="menu-list-item" onclick="showToast('Fitur Info Rekening (demo)')">
+        <div class="menu-list-item" onclick="showScreen('rekening')">
           <i class="fas fa-university"></i><span>Info Rekening</span><i class="fas fa-chevron-right arrow"></i>
         </div>
         <div class="menu-list-item" onclick="showToast('Fitur Keamanan (demo)')">
           <i class="fas fa-shield-alt"></i><span>Keamanan & PIN</span><i class="fas fa-chevron-right arrow"></i>
         </div>
-        <div class="menu-list-item" onclick="showToast('Versi 1.3.0 - Demo Only')">
+        <div class="menu-list-item" onclick="showToast('Versi 1.4.0 - Demo Only')">
           <i class="fas fa-info-circle"></i><span>Tentang Aplikasi</span><i class="fas fa-chevron-right arrow"></i>
         </div>
       </div>
@@ -615,27 +702,18 @@
     </div>
   </div>
 
-  <div class="loading-overlay" id="loading">
-    <div class="spinner"></div>
-    <div style="font-size:13px;color:var(--muted)">Memproses...</div>
-  </div>
+  <div class="loading-overlay" id="loading"><div class="spinner"></div><div style="font-size:13px;color:var(--muted)">Memproses...</div></div>
   <div class="toast" id="toast"></div>
 </div>
 
 <script>
-  let balance = 12750000;
-  let showSaldo = true;
+  let balance = 15926749;
+  let showSaldo = false;
   let pinValue = '';
   const CORRECT_PIN = '123456';
-
   let tfData = { bank:'', rek:'', name:'', amount:0, admin:0, note:'', total:0 };
 
-  const dummyNames = [
-    'BUDI SANTOSO','SITI AMINAH','AGUS SETIAWAN','DEWI LESTARI',
-    'AHMAD FAUZI','RINA WULANDARI','JOKO PRASOYO','ANITA RAHMA',
-    'HENDRA GUNAWAN','LINA MARLINA','RUDY HARTONO','MAYA SARI',
-    'DONI PRASETYO','FITRI HANDAYANI','EKO SAPUTRA','NINA KARTIKA'
-  ];
+  const dummyNames = ['BUDI SANTOSO','SITI AMINAH','AGUS SETIAWAN','DEWI LESTARI','AHMAD FAUZI','RINA WULANDARI','JOKO PRASOYO','ANITA RAHMA','HENDRA GUNAWAN','LINA MARLINA','RUDY HARTONO','MAYA SARI','DONI PRASETYO','FITRI HANDAYANI','EKO SAPUTRA','NINA KARTIKA'];
 
   let savedRecipients = [
     { name: 'BAGUS SAJIWO', bank: 'SEABANK', rek: '901398736967' },
@@ -654,21 +732,17 @@
 
   function showToast(msg) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
+    t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
   }
 
   function showLoading(v) { document.getElementById('loading').classList.toggle('show', v); }
 
   function checkLoginBtn() {
-    const pass = document.getElementById('login-pass').value;
-    document.getElementById('login-btn').disabled = pass.length < 4;
+    document.getElementById('login-btn').disabled = document.getElementById('login-pass').value.length < 4;
   }
 
   function doLogin() {
-    const pass = document.getElementById('login-pass').value;
-    if (pass.length < 4) return showToast('Password terlalu pendek');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('main-app').style.display = 'flex';
     renderTransactions();
@@ -686,7 +760,7 @@
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(name + '-screen').classList.add('active');
 
-    const hideNav = ['new-recipient','nominal','confirm','pin','receipt'].includes(name);
+    const hideNav = ['new-recipient','nominal','confirm','pin','receipt','rekening'].includes(name);
     document.getElementById('bottom-nav').style.display = hideNav ? 'none' : 'flex';
 
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -700,8 +774,8 @@
 
   function toggleSaldo() {
     showSaldo = !showSaldo;
-    document.getElementById('balance').textContent = showSaldo ? formatRupiah(balance) : 'Rp ••••••••';
-    document.getElementById('eye-icon').className = showSaldo ? 'fas fa-eye' : 'fas fa-eye-slash';
+    document.getElementById('balance').textContent = showSaldo ? formatRupiah(balance) : '••••••••';
+    document.getElementById('eye-icon').className = showSaldo ? 'fas fa-eye-slash' : 'fas fa-eye';
   }
 
   function renderTransactions() {
@@ -735,13 +809,10 @@
   }
 
   function selectSaved(name, bank, rek) {
-    tfData.bank = bank;
-    tfData.rek = rek;
-    tfData.name = name;
+    tfData = { bank, rek, name, amount:0, admin:0, note:'', total:0 };
     document.getElementById('nom-avatar').textContent = name.charAt(0);
     document.getElementById('nom-name').textContent = name;
     document.getElementById('nom-detail').textContent = bank + ' • ' + rek;
-    document.getElementById('nom-saldo').textContent = formatRupiah(balance);
     document.getElementById('tf-amount').value = '';
     document.getElementById('tf-note').value = '';
     document.getElementById('btn-lanjut-nominal').disabled = true;
@@ -754,24 +825,18 @@
   }
 
   function checkRecipientBtn() {
-    const rek = document.getElementById('tf-rek').value.trim();
-    document.getElementById('btn-lanjut-recipient').disabled = rek.length < 8;
+    document.getElementById('btn-lanjut-recipient').disabled = document.getElementById('tf-rek').value.trim().length < 8;
   }
 
   function goToNominal() {
     const bank = document.getElementById('tf-bank').value;
     const rek = document.getElementById('tf-rek').value.trim();
     if (rek.length < 8) return showToast('Nomor rekening tidak valid');
-
     const name = getDummyName(rek);
-    tfData.bank = bank;
-    tfData.rek = rek;
-    tfData.name = name;
-
+    tfData = { bank, rek, name, amount:0, admin:0, note:'', total:0 };
     document.getElementById('nom-avatar').textContent = name.charAt(0);
     document.getElementById('nom-name').textContent = name;
     document.getElementById('nom-detail').textContent = bank + ' • ' + rek;
-    document.getElementById('nom-saldo').textContent = formatRupiah(balance);
     document.getElementById('tf-amount').value = '';
     document.getElementById('tf-note').value = '';
     document.getElementById('btn-lanjut-nominal').disabled = true;
@@ -786,15 +851,11 @@
   function goToConfirm() {
     const amount = parseInt(document.getElementById('tf-amount').value) || 0;
     const note = document.getElementById('tf-note').value.trim() || '-';
-
     if (amount < 10000) return showToast('Minimal transfer Rp 10.000');
     if (amount > balance) return showToast('Saldo tidak mencukupi');
 
     const admin = tfData.bank === 'BANK BRI' ? 0 : 2500;
-    tfData.amount = amount;
-    tfData.admin = admin;
-    tfData.note = note;
-    tfData.total = amount + admin;
+    tfData.amount = amount; tfData.admin = admin; tfData.note = note; tfData.total = amount + admin;
 
     document.getElementById('cf-name').textContent = tfData.name;
     document.getElementById('cf-detail').textContent = tfData.bank + ' • ' + tfData.rek;
@@ -804,66 +865,45 @@
     document.getElementById('cf-admin').textContent = admin === 0 ? 'Gratis' : formatRupiah(admin);
     document.getElementById('cf-note').textContent = note;
     document.getElementById('cf-total').textContent = formatRupiah(tfData.total);
-
     showScreen('confirm');
   }
 
   function goToPin() { showScreen('pin'); }
-
   function resetPin() { pinValue = ''; updatePinDots(); }
-
   function updatePinDots() {
     document.querySelectorAll('#pin-dots .pin-dot').forEach((d,i) => d.classList.toggle('filled', i < pinValue.length));
   }
-
   function pressPin(n) {
     if (pinValue.length >= 6) return;
-    pinValue += n;
-    updatePinDots();
+    pinValue += n; updatePinDots();
     if (pinValue.length === 6) setTimeout(checkPin, 200);
   }
-
   function deletePin() { pinValue = pinValue.slice(0,-1); updatePinDots(); }
 
   function checkPin() {
-    if (pinValue !== CORRECT_PIN) {
-      showToast('PIN salah. Coba lagi.');
-      resetPin();
-      return;
-    }
-
+    if (pinValue !== CORRECT_PIN) { showToast('PIN salah'); resetPin(); return; }
     showLoading(true);
     setTimeout(() => {
       showLoading(false);
-
       balance -= tfData.total;
-      document.getElementById('balance').textContent = formatRupiah(balance);
+      document.getElementById('balance').textContent = showSaldo ? formatRupiah(balance) : '••••••••';
 
       const now = new Date();
-      const dateStr = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) +
-                      ', ' + now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
+      const dateStr = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) + ', ' + now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
 
-      transactions.unshift({
-        title: 'Transfer ke ' + tfData.name,
-        date: dateStr,
-        amount: tfData.amount,
-        type: 'out'
-      });
+      transactions.unshift({ title: 'Transfer ke ' + tfData.name, date: dateStr, amount: tfData.amount, type: 'out' });
       renderTransactions();
 
-      // tambah ke saved jika belum ada
       if (!savedRecipients.find(r => r.rek === tfData.rek)) {
         savedRecipients.unshift({ name: tfData.name, bank: tfData.bank, rek: tfData.rek });
       }
 
-      const ref = '22' + Date.now().toString().slice(-10);
       document.getElementById('rc-datetime').textContent = dateStr;
       document.getElementById('rc-amount').textContent = formatRupiah(tfData.amount);
-      document.getElementById('rc-ref').textContent = ref;
+      document.getElementById('rc-ref').textContent = '22' + Date.now().toString().slice(-10);
       document.getElementById('rc-tujuan').textContent = tfData.name + '\n' + tfData.rek;
       document.getElementById('rc-bank').textContent = tfData.bank;
       document.getElementById('rc-note').textContent = tfData.note;
-      document.getElementById('rc-admin').textContent = tfData.admin === 0 ? 'Gratis' : formatRupiah(tfData.admin);
 
       document.getElementById('tf-rek').value = '';
       showScreen('receipt');
@@ -872,7 +912,6 @@
 
   function finishTransfer() { showScreen('home'); }
 
-  // init
   checkLoginBtn();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
