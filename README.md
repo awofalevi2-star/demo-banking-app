@@ -1,42 +1,44 @@
-# Demo Bank App
+# BRIMO Demo - Aplikasi Mobile Banking
 
-Aplikasi **demo** mobile banking mirip BRIMO, dibuat hanya untuk tujuan pembelajaran.
+Aplikasi **demo** mobile banking yang mirip BRIMO, dibuat khusus untuk pembelajaran.
 
-> **Peringatan**: Ini adalah aplikasi demo. Bukan aplikasi bank sungguhan. Tidak terhubung ke sistem perbankan apa pun.
+> **Peringatan**: Ini hanyalah aplikasi demo. Bukan aplikasi bank sungguhan dan tidak terhubung ke sistem perbankan mana pun.
 
 ## Cara Menggunakan di Android
 
-### Cara 1: Langsung Buka (Paling Mudah)
-1. Buka link ini di **Chrome** di tablet/HP kamu:
-   **https://awofalevi2-star.github.io/demo-banking-app/**
-2. Tunggu sampai muncul halaman login
-3. Login dengan:
-   - Username: `demo`
-   - Password: `123456`
+### 1. Aktifkan GitHub Pages (sekali saja)
+1. Buka repository ini
+2. Masuk ke **Settings** → **Pages**
+3. Source pilih **Deploy from a branch**
+4. Branch: **main** → folder **/ (root)** → Save
+5. Tunggu 1-2 menit
 
-### Cara 2: Install seperti Aplikasi (Recommended)
-1. Buka link di atas menggunakan **Chrome**
-2. Ketuk ikon menu (titik tiga) di pojok kanan atas
-3. Pilih **"Tambahkan ke layar utama"** atau **"Install app"**
-4. Aplikasi akan muncul di layar utama seperti aplikasi biasa
+### 2. Buka Aplikasi
+Setelah GitHub Pages aktif, buka link ini di Chrome:
+**https://awofalevi2-star.github.io/demo-banking-app/**
 
-## Fitur yang Tersedia
-- Login / Logout
-- Dashboard dengan saldo
-- Transfer antar bank (dummy)
-- Riwayat transaksi
-- Halaman profil
+### 3. Install seperti Aplikasi
+1. Buka link di atas pakai **Chrome**
+2. Ketuk menu (titik tiga) → **Tambahkan ke layar utama** / **Install app**
+3. Aplikasi akan muncul di layar utama
 
 ## Akun Demo
 - Username: `demo`
 - Password: `123456`
 
-(atau bisa pakai username & password apa saja)
+## Fitur yang Tersedia
+- Login / Logout
+- Dashboard + saldo (bisa disembunyikan)
+- **Transfer** (Sesama BRI, Bank Lain, BI Fast)
+- **Bayar** (PLN, PDAM, Internet, BPJS, Pendidikan, Pajak)
+- **Beli** (Pulsa, Paket Data, Token Listrik, e-Wallet, Voucher)
+- **QRIS** (tampilan scan)
+- Mutasi / Riwayat Transaksi
+- Profil & Pengaturan
+- Bottom Navigation seperti aplikasi asli
 
-## Teknologi
-- HTML + CSS + JavaScript murni
-- Progressive Web App (PWA)
-- Bisa dijalankan offline setelah dibuka sekali
+## Catatan
+Semua transaksi bersifat dummy (tidak benar-benar memotong uang atau mengirim ke bank manapun).
 
 ---
-Dibuat untuk pembelajaran. Jangan digunakan untuk keperluan sungguhan.
+Dibuat untuk tujuan pembelajaran saja.

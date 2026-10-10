@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0052cc" />
+  <meta name="theme-color" content="#003d82" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Demo Bank App</title>
+  <title>BRIMO Demo</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     :root {
-      --primary: #0052cc;
-      --primary-dark: #003d99;
+      --primary: #003d82;
+      --primary-light: #0056b3;
+      --accent: #00a3e0;
       --success: #00a86b;
       --danger: #e53935;
-      --bg: #f0f4f8;
+      --warning: #ff9800;
+      --bg: #f0f2f5;
       --card: #ffffff;
       --text: #1a1a2e;
       --muted: #6b7280;
@@ -26,20 +27,28 @@
       padding: 0;
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background: var(--bg);
+      background: #ddd;
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* ========== LOGIN SCREEN ========== */
+    #app-wrapper {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--bg);
+      position: relative;
+      box-shadow: 0 0 30px rgba(0,0,0,0.15);
+    }
+
+    /* ========== LOGIN ========== */
     #login-screen {
       min-height: 100vh;
-      background: linear-gradient(160deg, #0052cc 0%, #003d99 100%);
+      background: linear-gradient(165deg, #003d82 0%, #0056b3 50%, #0077cc 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -48,54 +57,40 @@
     }
 
     .login-logo {
-      width: 90px;
-      height: 90px;
+      width: 88px;
+      height: 88px;
       background: white;
-      border-radius: 24px;
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     }
 
-    .login-logo i {
-      font-size: 42px;
-      color: var(--primary);
-    }
+    .login-logo i { font-size: 40px; color: var(--primary); }
 
-    .login-title {
-      color: white;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .login-subtitle {
-      color: rgba(255,255,255,0.8);
-      font-size: 15px;
-      margin-bottom: 40px;
-    }
+    .login-title { color: white; font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    .login-subtitle { color: rgba(255,255,255,0.85); font-size: 14px; margin-bottom: 36px; }
 
     .login-card {
       background: white;
       width: 100%;
-      max-width: 380px;
+      max-width: 360px;
       border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      padding: 28px 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
-    .form-group {
-      margin-bottom: 18px;
-    }
-
+    .form-group { margin-bottom: 16px; }
     .form-group label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--muted);
       margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
     .form-group input {
@@ -105,16 +100,13 @@
       border-radius: 12px;
       font-size: 16px;
       outline: none;
-      transition: border 0.2s;
+      transition: 0.2s;
     }
-
-    .form-group input:focus {
-      border-color: var(--primary);
-    }
+    .form-group input:focus { border-color: var(--primary); }
 
     .btn-primary {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       background: var(--primary);
       color: white;
       border: none;
@@ -122,210 +114,180 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s;
+      margin-top: 6px;
     }
-
-    .btn-primary:active {
-      background: var(--primary-dark);
-    }
+    .btn-primary:active { background: var(--primary-light); }
 
     .demo-hint {
       text-align: center;
-      margin-top: 16px;
-      font-size: 13px;
+      margin-top: 14px;
+      font-size: 12px;
       color: var(--muted);
     }
 
-    /* ========== APP CONTAINER ========== */
-    #app {
-      display: none;
-      flex-direction: column;
-      min-height: 100vh;
-      max-width: 480px;
-      margin: 0 auto;
-      background: var(--bg);
-      position: relative;
-    }
+    /* ========== MAIN APP ========== */
+    #main-app { display: none; min-height: 100vh; flex-direction: column; }
 
     /* Header */
     .header {
-      background: var(--primary);
+      background: linear-gradient(135deg, #003d82, #0056b3);
       color: white;
-      padding: 16px 20px 20px;
-      border-radius: 0 0 24px 24px;
+      padding: 18px 18px 22px;
+      border-radius: 0 0 28px 28px;
     }
 
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .greeting {
-      font-size: 14px;
-      opacity: 0.9;
-    }
+    .greeting { font-size: 13px; opacity: 0.9; }
+    .user-name { font-size: 17px; font-weight: 700; }
 
-    .user-name {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .notif-btn {
-      width: 40px;
-      height: 40px;
+    .header-actions { display: flex; gap: 10px; }
+    .icon-btn {
+      width: 38px; height: 38px;
       background: rgba(255,255,255,0.15);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
     }
 
     .balance-card {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.12);
       border-radius: 16px;
-      padding: 18px;
-      backdrop-filter: blur(10px);
+      padding: 16px 18px;
+      backdrop-filter: blur(8px);
     }
 
-    .balance-label {
-      font-size: 13px;
+    .balance-label { font-size: 12px; opacity: 0.85; margin-bottom: 4px; }
+    .balance-amount { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    .balance-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 12px;
       opacity: 0.85;
-      margin-bottom: 4px;
-    }
-
-    .balance-amount {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .balance-account {
-      font-size: 13px;
-      opacity: 0.8;
-      margin-top: 6px;
     }
 
     /* Content */
     .content {
       flex: 1;
-      padding: 20px 16px 90px;
+      padding: 18px 14px 95px;
       overflow-y: auto;
     }
 
-    /* Quick Menu */
     .section-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 14px;
-      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-title a {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
     }
 
+    /* Quick Menu - Grid 4 kolom */
     .quick-menu {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 14px 8px;
+      margin-bottom: 24px;
+      background: white;
+      border-radius: 16px;
+      padding: 18px 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
 
     .menu-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       cursor: pointer;
     }
 
     .menu-icon {
-      width: 54px;
-      height: 54px;
-      background: white;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      color: var(--primary);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      color: white;
     }
 
     .menu-item span {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--text);
       text-align: center;
+      line-height: 1.2;
     }
 
-    /* Transaction List */
+    /* Warna icon menu */
+    .bg-blue { background: linear-gradient(135deg, #003d82, #0056b3); }
+    .bg-green { background: linear-gradient(135deg, #00a86b, #00c853); }
+    .bg-orange { background: linear-gradient(135deg, #ff9800, #ffb300); }
+    .bg-purple { background: linear-gradient(135deg, #7b1fa2, #9c27b0); }
+    .bg-red { background: linear-gradient(135deg, #e53935, #f44336); }
+    .bg-teal { background: linear-gradient(135deg, #00897b, #26a69a); }
+    .bg-indigo { background: linear-gradient(135deg, #3949ab, #5c6bc0); }
+    .bg-pink { background: linear-gradient(135deg, #d81b60, #ec407a); }
+
+    /* Promo Banner */
+    .promo-banner {
+      background: linear-gradient(135deg, #003d82, #00a3e0);
+      border-radius: 14px;
+      padding: 16px 18px;
+      color: white;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .promo-banner h4 { font-size: 14px; margin-bottom: 4px; }
+    .promo-banner p { font-size: 12px; opacity: 0.9; }
+
+    /* Transaction */
     .tx-card {
       background: white;
-      border-radius: 16px;
-      padding: 4px 0;
+      border-radius: 14px;
+      overflow: hidden;
       box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     }
 
     .tx-item {
       display: flex;
       align-items: center;
-      padding: 14px 16px;
+      padding: 13px 14px;
       border-bottom: 1px solid #f3f4f6;
     }
-
-    .tx-item:last-child {
-      border-bottom: none;
-    }
+    .tx-item:last-child { border-bottom: none; }
 
     .tx-icon {
-      width: 42px;
-      height: 42px;
+      width: 40px; height: 40px;
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      margin-right: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      margin-right: 12px;
+      flex-shrink: 0;
     }
+    .tx-icon.in { background: #e6f7ef; color: var(--success); }
+    .tx-icon.out { background: #fdecea; color: var(--danger); }
 
-    .tx-icon.in {
-      background: #e6f7ef;
-      color: var(--success);
-    }
+    .tx-info { flex: 1; min-width: 0; }
+    .tx-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tx-date { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-    .tx-icon.out {
-      background: #fdecea;
-      color: var(--danger);
-    }
-
-    .tx-info {
-      flex: 1;
-    }
-
-    .tx-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .tx-date {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .tx-amount {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .tx-amount.in {
-      color: var(--success);
-    }
-
-    .tx-amount.out {
-      color: var(--danger);
-    }
+    .tx-amount { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .tx-amount.in { color: var(--success); }
+    .tx-amount.out { color: var(--danger); }
 
     /* Bottom Nav */
     .bottom-nav {
@@ -334,13 +296,13 @@
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      max-width: 480px;
+      max-width: 430px;
       background: white;
       display: flex;
       justify-content: space-around;
-      padding: 10px 0 16px;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
-      border-radius: 20px 20px 0 0;
+      padding: 8px 0 14px;
+      box-shadow: 0 -3px 16px rgba(0,0,0,0.06);
+      border-radius: 18px 18px 0 0;
       z-index: 100;
     }
 
@@ -348,92 +310,160 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      font-size: 11px;
+      gap: 3px;
+      font-size: 10px;
       color: var(--muted);
       cursor: pointer;
-      padding: 6px 12px;
-      border-radius: 12px;
-      transition: all 0.2s;
+      padding: 6px 10px;
+      border-radius: 10px;
     }
+    .nav-item.active { color: var(--primary); font-weight: 600; }
+    .nav-item i { font-size: 20px; }
 
-    .nav-item.active {
-      color: var(--primary);
-    }
+    /* Screens */
+    .screen { display: none; }
+    .screen.active { display: block; }
 
-    .nav-item i {
-      font-size: 20px;
-    }
-
-    /* ========== SCREENS ========== */
-    .screen {
-      display: none;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
-    /* Transfer Screen */
+    /* Page Header */
     .page-header {
       background: var(--primary);
       color: white;
-      padding: 16px 20px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-
-    .page-header h2 {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
+    .page-header h2 { font-size: 17px; font-weight: 600; }
     .back-btn {
-      width: 36px;
-      height: 36px;
+      width: 34px; height: 34px;
       background: rgba(255,255,255,0.15);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer;
     }
 
+    /* Form Card */
     .form-card {
       background: white;
-      margin: 20px 16px;
-      border-radius: 16px;
-      padding: 20px;
+      margin: 16px 14px;
+      border-radius: 14px;
+      padding: 18px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     }
 
-    .form-card .form-group {
-      margin-bottom: 16px;
-    }
-
+    .form-card .form-group { margin-bottom: 14px; }
     .form-card label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--muted);
       margin-bottom: 6px;
       display: block;
     }
-
     .form-card input, .form-card select {
       width: 100%;
-      padding: 14px 16px;
+      padding: 13px 14px;
       border: 1.5px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 15px;
       outline: none;
     }
+    .form-card input:focus, .form-card select:focus { border-color: var(--primary); }
 
-    .form-card input:focus, .form-card select:focus {
-      border-color: var(--primary);
+    /* List Menu (untuk Bayar & Beli) */
+    .list-menu {
+      background: white;
+      margin: 14px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     }
 
-    /* Success Modal */
+    .list-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: pointer;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-item:active { background: #f9fafb; }
+
+    .list-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: white;
+      margin-right: 14px;
+    }
+
+    .list-info { flex: 1; }
+    .list-title { font-size: 14px; font-weight: 600; }
+    .list-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .list-arrow { color: #d1d5db; font-size: 14px; }
+
+    /* Profile */
+    .profile-card {
+      background: white;
+      margin: 16px 14px;
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .avatar {
+      width: 72px; height: 72px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 28px;
+      color: white;
+      font-weight: 700;
+    }
+    .profile-name { font-size: 18px; font-weight: 700; }
+    .profile-email { color: var(--muted); font-size: 13px; margin-top: 3px; }
+
+    .menu-list {
+      background: white;
+      margin: 0 14px 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .menu-list-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: pointer;
+    }
+    .menu-list-item:last-child { border-bottom: none; }
+    .menu-list-item i:first-child {
+      width: 32px;
+      font-size: 16px;
+      color: var(--primary);
+    }
+    .menu-list-item span { flex: 1; font-size: 14px; font-weight: 500; }
+    .menu-list-item .arrow { color: #d1d5db; }
+
+    .logout-btn {
+      margin: 0 14px 30px;
+      padding: 14px;
+      background: #fdecea;
+      color: var(--danger);
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      width: calc(100% - 28px);
+      cursor: pointer;
+    }
+
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -444,162 +474,80 @@
       z-index: 200;
       padding: 20px;
     }
-
-    .modal-overlay.show {
-      display: flex;
-    }
+    .modal-overlay.show { display: flex; }
 
     .modal {
       background: white;
-      border-radius: 20px;
-      padding: 32px 24px;
+      border-radius: 18px;
+      padding: 28px 22px;
       text-align: center;
-      max-width: 320px;
+      max-width: 300px;
       width: 100%;
     }
-
     .modal-icon {
-      width: 70px;
-      height: 70px;
+      width: 64px; height: 64px;
       background: #e6f7ef;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 32px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      font-size: 28px;
       color: var(--success);
     }
-
-    .modal h3 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .modal p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
-    /* Profile */
-    .profile-card {
-      background: white;
-      margin: 20px 16px;
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-
-    .avatar {
-      width: 80px;
-      height: 80px;
-      background: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      font-size: 32px;
-      color: white;
-      font-weight: 700;
-    }
-
-    .profile-name {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .profile-email {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .menu-list {
-      background: white;
-      margin: 0 16px 20px;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-
-    .menu-list-item {
-      display: flex;
-      align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid #f3f4f6;
-      cursor: pointer;
-    }
-
-    .menu-list-item:last-child {
-      border-bottom: none;
-    }
-
-    .menu-list-item i {
-      width: 36px;
-      font-size: 18px;
-      color: var(--primary);
-    }
-
-    .menu-list-item span {
-      flex: 1;
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .menu-list-item .arrow {
-      color: #d1d5db;
-    }
-
-    .logout-btn {
-      margin: 0 16px 30px;
-      padding: 16px;
-      background: #fdecea;
-      color: var(--danger);
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      width: calc(100% - 32px);
-      cursor: pointer;
-    }
+    .modal h3 { font-size: 18px; margin-bottom: 6px; }
+    .modal p { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
 
     /* Toast */
     .toast {
       position: fixed;
-      top: 20px;
+      top: 18px;
       left: 50%;
-      transform: translateX(-50%) translateY(-100px);
+      transform: translateX(-50%) translateY(-80px);
       background: #1a1a2e;
       color: white;
-      padding: 12px 24px;
+      padding: 11px 22px;
       border-radius: 30px;
-      font-size: 14px;
+      font-size: 13px;
       z-index: 300;
       transition: transform 0.3s ease;
       white-space: nowrap;
+      max-width: 90%;
     }
+    .toast.show { transform: translateX(-50%) translateY(0); }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
+    /* QRIS Screen */
+    .qris-box {
+      background: white;
+      margin: 20px 14px;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .qris-placeholder {
+      width: 200px; height: 200px;
+      background: #f0f2f5;
+      margin: 0 auto 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
+<div id="app-wrapper">
 
-  <!-- LOGIN SCREEN -->
+  <!-- ========== LOGIN ========== -->
   <div id="login-screen">
-    <div class="login-logo">
-      <i class="fas fa-university"></i>
-    </div>
-    <h1 class="login-title">Demo Bank</h1>
+    <div class="login-logo"><i class="fas fa-university"></i></div>
+    <h1 class="login-title">BRIMO Demo</h1>
     <p class="login-subtitle">Aplikasi Demo Mobile Banking</p>
 
     <div class="login-card">
       <div class="form-group">
-        <label>Username / No. Rekening</label>
+        <label>Username / No. HP</label>
         <input type="text" id="login-user" placeholder="Masukkan username" value="demo" />
       </div>
       <div class="form-group">
@@ -607,13 +555,14 @@
         <input type="password" id="login-pass" placeholder="Masukkan password" value="123456" />
       </div>
       <button class="btn-primary" onclick="doLogin()">Masuk</button>
-      <p class="demo-hint">Gunakan akun demo: <b>demo</b> / <b>123456</b></p>
+      <p class="demo-hint">Akun demo: <b>demo</b> / <b>123456</b></p>
     </div>
   </div>
 
-  <!-- MAIN APP -->
-  <div id="app">
-    <!-- HOME SCREEN -->
+  <!-- ========== MAIN APP ========== -->
+  <div id="main-app">
+
+    <!-- HOME -->
     <div id="home-screen" class="screen active">
       <div class="header">
         <div class="header-top">
@@ -621,46 +570,77 @@
             <div class="greeting">Selamat datang,</div>
             <div class="user-name" id="display-name">Pengguna Demo</div>
           </div>
-          <div class="notif-btn" onclick="showToast('Tidak ada notifikasi baru')">
-            <i class="fas fa-bell"></i>
+          <div class="header-actions">
+            <div class="icon-btn" onclick="showToast('Tidak ada notifikasi')"><i class="fas fa-bell"></i></div>
+            <div class="icon-btn" onclick="showScreen('profile')"><i class="fas fa-user"></i></div>
           </div>
         </div>
         <div class="balance-card">
-          <div class="balance-label">Saldo Rekening</div>
-          <div class="balance-amount" id="balance">Rp 12.500.000</div>
-          <div class="balance-account">Rekening: 1234 5678 9012</div>
+          <div class="balance-label">Saldo Rekening Utama</div>
+          <div class="balance-amount" id="balance">Rp 12.750.000</div>
+          <div class="balance-info">
+            <span>1234 5678 9012</span>
+            <span onclick="toggleSaldo()" style="cursor:pointer"><i class="fas fa-eye" id="eye-icon"></i></span>
+          </div>
         </div>
       </div>
 
       <div class="content">
-        <div class="section-title">Menu Cepat</div>
+        <!-- Menu Utama -->
         <div class="quick-menu">
           <div class="menu-item" onclick="showScreen('transfer')">
-            <div class="menu-icon"><i class="fas fa-paper-plane"></i></div>
+            <div class="menu-icon bg-blue"><i class="fas fa-paper-plane"></i></div>
             <span>Transfer</span>
           </div>
-          <div class="menu-item" onclick="showToast('Fitur Bayar (demo)')">
-            <div class="menu-icon"><i class="fas fa-qrcode"></i></div>
+          <div class="menu-item" onclick="showScreen('bayar')">
+            <div class="menu-icon bg-green"><i class="fas fa-file-invoice-dollar"></i></div>
             <span>Bayar</span>
           </div>
-          <div class="menu-item" onclick="showToast('Fitur Top Up (demo)')">
-            <div class="menu-icon"><i class="fas fa-wallet"></i></div>
-            <span>Top Up</span>
+          <div class="menu-item" onclick="showScreen('beli')">
+            <div class="menu-icon bg-orange"><i class="fas fa-shopping-cart"></i></div>
+            <span>Beli</span>
+          </div>
+          <div class="menu-item" onclick="showScreen('qris')">
+            <div class="menu-icon bg-purple"><i class="fas fa-qrcode"></i></div>
+            <span>QRIS</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Tarik Tunai (demo)')">
+            <div class="menu-icon bg-teal"><i class="fas fa-money-bill-wave"></i></div>
+            <span>Tarik Tunai</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Dompet Digital (demo)')">
+            <div class="menu-icon bg-indigo"><i class="fas fa-wallet"></i></div>
+            <span>Dompet Digital</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Catatan Keuangan (demo)')">
+            <div class="menu-icon bg-pink"><i class="fas fa-book"></i></div>
+            <span>Catatan</span>
           </div>
           <div class="menu-item" onclick="showScreen('history')">
-            <div class="menu-icon"><i class="fas fa-history"></i></div>
-            <span>Riwayat</span>
+            <div class="menu-icon bg-red"><i class="fas fa-history"></i></div>
+            <span>Mutasi</span>
           </div>
         </div>
 
-        <div class="section-title">Transaksi Terakhir</div>
-        <div class="tx-card" id="recent-tx">
-          <!-- filled by JS -->
+        <!-- Promo -->
+        <div class="promo-banner" onclick="showToast('Promo hanya demo')">
+          <div>
+            <h4>Ada Promo Spesial!</h4>
+            <p>Transfer gratis ke semua bank</p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
         </div>
+
+        <!-- Transaksi Terakhir -->
+        <div class="section-title">
+          Transaksi Terakhir
+          <a href="#" onclick="showScreen('history'); return false;">Lihat Semua</a>
+        </div>
+        <div class="tx-card" id="recent-tx"></div>
       </div>
     </div>
 
-    <!-- TRANSFER SCREEN -->
+    <!-- TRANSFER -->
     <div id="transfer-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
@@ -668,59 +648,213 @@
       </div>
       <div class="form-card">
         <div class="form-group">
+          <label>Jenis Transfer</label>
+          <select id="tf-type">
+            <option value="bri">Transfer ke Sesama BRI</option>
+            <option value="bank">Transfer ke Bank Lain</option>
+            <option value="bifast">BI Fast</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label>Bank Tujuan</label>
           <select id="tf-bank">
             <option value="BRI">Bank BRI</option>
             <option value="BCA">Bank BCA</option>
             <option value="Mandiri">Bank Mandiri</option>
             <option value="BNI">Bank BNI</option>
+            <option value="BTN">Bank BTN</option>
+            <option value="CIMB">CIMB Niaga</option>
           </select>
         </div>
         <div class="form-group">
           <label>Nomor Rekening</label>
-          <input type="text" id="tf-rek" placeholder="Masukkan nomor rekening" />
+          <input type="text" id="tf-rek" placeholder="Masukkan nomor rekening" inputmode="numeric" />
         </div>
         <div class="form-group">
           <label>Nominal</label>
-          <input type="number" id="tf-amount" placeholder="Rp 0" />
+          <input type="number" id="tf-amount" placeholder="Rp 0" inputmode="numeric" />
         </div>
         <div class="form-group">
           <label>Catatan (opsional)</label>
           <input type="text" id="tf-note" placeholder="Contoh: Bayar utang" />
         </div>
-        <button class="btn-primary" onclick="doTransfer()">Transfer Sekarang</button>
+        <button class="btn-primary" onclick="doTransfer()">Lanjutkan</button>
       </div>
     </div>
 
-    <!-- HISTORY SCREEN -->
-    <div id="history-screen" class="screen">
+    <!-- BAYAR -->
+    <div id="bayar-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
-        <h2>Riwayat Transaksi</h2>
+        <h2>Bayar</h2>
       </div>
-      <div class="content" style="padding-top: 16px;">
-        <div class="tx-card" id="full-history">
-          <!-- filled by JS -->
+      <div class="list-menu">
+        <div class="list-item" onclick="openPayment('PLN', 'Tagihan Listrik')">
+          <div class="list-icon bg-orange"><i class="fas fa-bolt"></i></div>
+          <div class="list-info">
+            <div class="list-title">PLN</div>
+            <div class="list-desc">Tagihan & Token Listrik</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('PDAM', 'Tagihan Air')">
+          <div class="list-icon bg-blue"><i class="fas fa-tint"></i></div>
+          <div class="list-info">
+            <div class="list-title">PDAM</div>
+            <div class="list-desc">Tagihan Air Minum</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Internet', 'Tagihan Internet')">
+          <div class="list-icon bg-purple"><i class="fas fa-wifi"></i></div>
+          <div class="list-info">
+            <div class="list-title">Internet & TV Kabel</div>
+            <div class="list-desc">Indihome, First Media, dll</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('BPJS', 'BPJS Kesehatan')">
+          <div class="list-icon bg-green"><i class="fas fa-heartbeat"></i></div>
+          <div class="list-info">
+            <div class="list-title">BPJS</div>
+            <div class="list-desc">Kesehatan & Ketenagakerjaan</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Pendidikan', 'Tagihan Pendidikan')">
+          <div class="list-icon bg-indigo"><i class="fas fa-graduation-cap"></i></div>
+          <div class="list-info">
+            <div class="list-title">Pendidikan</div>
+            <div class="list-desc">SPP, Uang Kuliah, dll</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Pajak', 'Pajak')">
+          <div class="list-icon bg-red"><i class="fas fa-receipt"></i></div>
+          <div class="list-info">
+            <div class="list-title">Pajak</div>
+            <div class="list-desc">PBB, PKB, dll</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
         </div>
       </div>
     </div>
 
-    <!-- PROFILE SCREEN -->
+    <!-- BELI -->
+    <div id="beli-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Beli</h2>
+      </div>
+      <div class="list-menu">
+        <div class="list-item" onclick="openPayment('Pulsa', 'Pembelian Pulsa')">
+          <div class="list-icon bg-blue"><i class="fas fa-mobile-alt"></i></div>
+          <div class="list-info">
+            <div class="list-title">Pulsa</div>
+            <div class="list-desc">Semua operator</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Paket Data', 'Paket Internet')">
+          <div class="list-icon bg-teal"><i class="fas fa-signal"></i></div>
+          <div class="list-info">
+            <div class="list-title">Paket Data</div>
+            <div class="list-desc">Internet harian, bulanan</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Token Listrik', 'Token PLN')">
+          <div class="list-icon bg-orange"><i class="fas fa-bolt"></i></div>
+          <div class="list-info">
+            <div class="list-title">Token Listrik</div>
+            <div class="list-desc">PLN Prepaid</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('e-Wallet', 'Top Up e-Wallet')">
+          <div class="list-icon bg-purple"><i class="fas fa-wallet"></i></div>
+          <div class="list-info">
+            <div class="list-title">e-Wallet</div>
+            <div class="list-desc">GoPay, OVO, Dana, ShopeePay</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+        <div class="list-item" onclick="openPayment('Voucher', 'Voucher')">
+          <div class="list-icon bg-pink"><i class="fas fa-ticket-alt"></i></div>
+          <div class="list-info">
+            <div class="list-title">Voucher Game & Hiburan</div>
+            <div class="list-desc">Steam, Google Play, dll</div>
+          </div>
+          <i class="fas fa-chevron-right list-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- QRIS -->
+    <div id="qris-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>QRIS</h2>
+      </div>
+      <div class="qris-box">
+        <div class="qris-placeholder"><i class="fas fa-qrcode"></i></div>
+        <h3 style="margin-bottom:8px">Scan QRIS</h3>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:18px">Arahkan kamera ke kode QR untuk membayar</p>
+        <button class="btn-primary" onclick="showToast('Fitur kamera hanya demo')">Buka Kamera</button>
+      </div>
+    </div>
+
+    <!-- PAYMENT FORM (dinamis) -->
+    <div id="payment-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="goBackFromPayment()"><i class="fas fa-arrow-left"></i></div>
+        <h2 id="payment-title">Pembayaran</h2>
+      </div>
+      <div class="form-card">
+        <div class="form-group">
+          <label id="payment-label">Nomor Pelanggan / HP</label>
+          <input type="text" id="pay-number" placeholder="Masukkan nomor" />
+        </div>
+        <div class="form-group">
+          <label>Nominal</label>
+          <input type="number" id="pay-amount" placeholder="Rp 0" inputmode="numeric" />
+        </div>
+        <button class="btn-primary" onclick="doPayment()">Bayar Sekarang</button>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="history-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Mutasi Rekening</h2>
+      </div>
+      <div class="content" style="padding-top:12px">
+        <div class="tx-card" id="full-history"></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
     <div id="profile-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
-        <h2>Profil</h2>
+        <h2>Akun Saya</h2>
       </div>
       <div class="profile-card">
         <div class="avatar">D</div>
         <div class="profile-name">Pengguna Demo</div>
-        <div class="profile-email">demo@email.com</div>
+        <div class="profile-email">demo@email.com • 0812-3456-7890</div>
       </div>
 
       <div class="menu-list">
-        <div class="menu-list-item" onclick="showToast('Fitur Ubah Profil (demo)')">
-          <i class="fas fa-user-edit"></i>
-          <span>Ubah Profil</span>
+        <div class="menu-list-item" onclick="showToast('Fitur Info Rekening (demo)')">
+          <i class="fas fa-university"></i>
+          <span>Info Rekening</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <div class="menu-list-item" onclick="showToast('Fitur Kartu Debit (demo)')">
+          <i class="fas fa-credit-card"></i>
+          <span>Kartu Debit</span>
           <i class="fas fa-chevron-right arrow"></i>
         </div>
         <div class="menu-list-item" onclick="showToast('Fitur Keamanan (demo)')">
@@ -730,10 +864,10 @@
         </div>
         <div class="menu-list-item" onclick="showToast('Fitur Bantuan (demo)')">
           <i class="fas fa-question-circle"></i>
-          <span>Bantuan</span>
+          <span>Pusat Bantuan</span>
           <i class="fas fa-chevron-right arrow"></i>
         </div>
-        <div class="menu-list-item" onclick="showToast('Versi 1.0.0 - Demo Only')">
+        <div class="menu-list-item" onclick="showToast('Versi 1.1.0 - Demo Only')">
           <i class="fas fa-info-circle"></i>
           <span>Tentang Aplikasi</span>
           <i class="fas fa-chevron-right arrow"></i>
@@ -745,23 +879,22 @@
       </button>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
       <div class="nav-item active" onclick="showScreen('home')" data-screen="home">
-        <i class="fas fa-home"></i>
-        <span>Beranda</span>
+        <i class="fas fa-home"></i><span>Beranda</span>
       </div>
       <div class="nav-item" onclick="showScreen('transfer')" data-screen="transfer">
-        <i class="fas fa-paper-plane"></i>
-        <span>Transfer</span>
+        <i class="fas fa-paper-plane"></i><span>Transfer</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('qris')" data-screen="qris">
+        <i class="fas fa-qrcode"></i><span>QRIS</span>
       </div>
       <div class="nav-item" onclick="showScreen('history')" data-screen="history">
-        <i class="fas fa-history"></i>
-        <span>Riwayat</span>
+        <i class="fas fa-history"></i><span>Mutasi</span>
       </div>
       <div class="nav-item" onclick="showScreen('profile')" data-screen="profile">
-        <i class="fas fa-user"></i>
-        <span>Profil</span>
+        <i class="fas fa-user"></i><span>Akun</span>
       </div>
     </div>
   </div>
@@ -770,7 +903,7 @@
   <div class="modal-overlay" id="success-modal">
     <div class="modal">
       <div class="modal-icon"><i class="fas fa-check"></i></div>
-      <h3>Transfer Berhasil!</h3>
+      <h3 id="modal-title">Berhasil!</h3>
       <p id="success-msg">Transaksi kamu telah berhasil diproses.</p>
       <button class="btn-primary" onclick="closeModal()">Selesai</button>
     </div>
@@ -779,160 +912,180 @@
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
-  <script>
-    // ========== DATA ==========
-    let balance = 12500000;
-    let transactions = [
-      { id: 1, title: 'Transfer dari Budi', date: '10 Okt 2026, 09:15', amount: 500000, type: 'in' },
-      { id: 2, title: 'Bayar Listrik PLN', date: '09 Okt 2026, 14:30', amount: 275000, type: 'out' },
-      { id: 3, title: 'Transfer ke Siti', date: '08 Okt 2026, 11:20', amount: 1500000, type: 'out' },
-      { id: 4, title: 'Gaji Bulanan', date: '01 Okt 2026, 08:00', amount: 8500000, type: 'in' },
-      { id: 5, title: 'Top Up GoPay', date: '28 Sep 2026, 19:45', amount: 100000, type: 'out' },
-    ];
+</div>
 
-    // ========== HELPERS ==========
-    function formatRupiah(num) {
-      return 'Rp ' + num.toLocaleString('id-ID');
-    }
+<script>
+  let balance = 12750000;
+  let showSaldo = true;
+  let lastPaymentScreen = 'bayar';
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
-    }
+  let transactions = [
+    { title: 'Transfer dari Budi Santoso', date: '10 Okt 2026, 09:15', amount: 500000, type: 'in' },
+    { title: 'Bayar PLN - 12345678901', date: '09 Okt 2026, 14:30', amount: 275000, type: 'out' },
+    { title: 'Transfer ke Siti Aminah', date: '08 Okt 2026, 11:20', amount: 1500000, type: 'out' },
+    { title: 'Gaji PT Maju Jaya', date: '01 Okt 2026, 08:00', amount: 8500000, type: 'in' },
+    { title: 'Top Up GoPay', date: '28 Sep 2026, 19:45', amount: 100000, type: 'out' },
+    { title: 'Beli Pulsa Telkomsel', date: '25 Sep 2026, 12:10', amount: 50000, type: 'out' },
+  ];
 
-    // ========== LOGIN ==========
-    function doLogin() {
-      const user = document.getElementById('login-user').value.trim();
-      const pass = document.getElementById('login-pass').value.trim();
+  function formatRupiah(num) {
+    return 'Rp ' + num.toLocaleString('id-ID');
+  }
 
-      if (!user || !pass) {
-        showToast('Username dan Password wajib diisi');
-        return;
-      }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
 
-      // Demo: terima semua login
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app').style.display = 'flex';
-      document.getElementById('display-name').textContent = user === 'demo' ? 'Pengguna Demo' : user;
-      renderTransactions();
-      showToast('Berhasil masuk!');
-    }
+  function doLogin() {
+    const user = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim();
+    if (!user || !pass) return showToast('Username dan Password wajib diisi');
 
-    function doLogout() {
-      document.getElementById('app').style.display = 'none';
-      document.getElementById('login-screen').style.display = 'flex';
-      showScreen('home');
-    }
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'flex';
+    document.getElementById('display-name').textContent = user === 'demo' ? 'Pengguna Demo' : user;
+    renderTransactions();
+    showToast('Berhasil masuk!');
+  }
 
-    // ========== NAVIGATION ==========
-    function showScreen(name) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(name + '-screen').classList.add('active');
+  function doLogout() {
+    document.getElementById('main-app').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    showScreen('home');
+  }
 
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      const nav = document.querySelector(`.nav-item[data-screen="${name}"]`);
-      if (nav) nav.classList.add('active');
+  function showScreen(name) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(name + '-screen').classList.add('active');
 
-      if (name === 'history') renderFullHistory();
-    }
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const nav = document.querySelector(`.nav-item[data-screen="${name}"]`);
+    if (nav) nav.classList.add('active');
 
-    // ========== TRANSACTIONS ==========
-    function renderTransactions() {
-      const container = document.getElementById('recent-tx');
-      const recent = transactions.slice(0, 4);
-      container.innerHTML = recent.map(tx => `
-        <div class="tx-item">
-          <div class="tx-icon ${tx.type}">
-            <i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i>
-          </div>
-          <div class="tx-info">
-            <div class="tx-title">${tx.title}</div>
-            <div class="tx-date">${tx.date}</div>
-          </div>
-          <div class="tx-amount ${tx.type}">
-            ${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}
-          </div>
+    if (name === 'history') renderFullHistory();
+  }
+
+  function toggleSaldo() {
+    showSaldo = !showSaldo;
+    document.getElementById('balance').textContent = showSaldo ? formatRupiah(balance) : 'Rp ••••••••';
+    document.getElementById('eye-icon').className = showSaldo ? 'fas fa-eye' : 'fas fa-eye-slash';
+  }
+
+  function renderTransactions() {
+    const el = document.getElementById('recent-tx');
+    el.innerHTML = transactions.slice(0, 5).map(tx => `
+      <div class="tx-item">
+        <div class="tx-icon ${tx.type}"><i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i></div>
+        <div class="tx-info">
+          <div class="tx-title">${tx.title}</div>
+          <div class="tx-date">${tx.date}</div>
         </div>
-      `).join('');
-    }
+        <div class="tx-amount ${tx.type}">${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}</div>
+      </div>
+    `).join('');
+  }
 
-    function renderFullHistory() {
-      const container = document.getElementById('full-history');
-      container.innerHTML = transactions.map(tx => `
-        <div class="tx-item">
-          <div class="tx-icon ${tx.type}">
-            <i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i>
-          </div>
-          <div class="tx-info">
-            <div class="tx-title">${tx.title}</div>
-            <div class="tx-date">${tx.date}</div>
-          </div>
-          <div class="tx-amount ${tx.type}">
-            ${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}
-          </div>
+  function renderFullHistory() {
+    const el = document.getElementById('full-history');
+    el.innerHTML = transactions.map(tx => `
+      <div class="tx-item">
+        <div class="tx-icon ${tx.type}"><i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i></div>
+        <div class="tx-info">
+          <div class="tx-title">${tx.title}</div>
+          <div class="tx-date">${tx.date}</div>
         </div>
-      `).join('');
-    }
+        <div class="tx-amount ${tx.type}">${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}</div>
+      </div>
+    `).join('');
+  }
 
-    // ========== TRANSFER ==========
-    function doTransfer() {
-      const bank = document.getElementById('tf-bank').value;
-      const rek = document.getElementById('tf-rek').value.trim();
-      const amount = parseInt(document.getElementById('tf-amount').value);
-      const note = document.getElementById('tf-note').value.trim() || 'Transfer';
+  function doTransfer() {
+    const bank = document.getElementById('tf-bank').value;
+    const rek = document.getElementById('tf-rek').value.trim();
+    const amount = parseInt(document.getElementById('tf-amount').value);
+    const note = document.getElementById('tf-note').value.trim() || 'Transfer';
 
-      if (!rek) {
-        showToast('Nomor rekening wajib diisi');
-        return;
-      }
-      if (!amount || amount <= 0) {
-        showToast('Nominal tidak valid');
-        return;
-      }
-      if (amount > balance) {
-        showToast('Saldo tidak mencukupi');
-        return;
-      }
+    if (!rek) return showToast('Nomor rekening wajib diisi');
+    if (!amount || amount <= 0) return showToast('Nominal tidak valid');
+    if (amount > balance) return showToast('Saldo tidak mencukupi');
 
-      // Proses transfer (demo)
-      balance -= amount;
-      document.getElementById('balance').textContent = formatRupiah(balance);
+    balance -= amount;
+    document.getElementById('balance').textContent = formatRupiah(balance);
 
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + 
-                      ', ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) +
+                    ', ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-      transactions.unshift({
-        id: Date.now(),
-        title: `Transfer ke ${bank} - ${rek}`,
-        date: dateStr,
-        amount: amount,
-        type: 'out'
-      });
+    transactions.unshift({
+      title: `Transfer ke ${bank} - ${rek}`,
+      date: dateStr,
+      amount,
+      type: 'out'
+    });
+    renderTransactions();
 
-      renderTransactions();
+    document.getElementById('modal-title').textContent = 'Transfer Berhasil!';
+    document.getElementById('success-msg').textContent = `Berhasil transfer ${formatRupiah(amount)} ke ${rek} (${bank})`;
+    document.getElementById('success-modal').classList.add('show');
 
-      document.getElementById('success-msg').textContent = 
-        `Berhasil transfer ${formatRupiah(amount)} ke rekening ${rek} (${bank})`;
-      document.getElementById('success-modal').classList.add('show');
+    document.getElementById('tf-rek').value = '';
+    document.getElementById('tf-amount').value = '';
+    document.getElementById('tf-note').value = '';
+  }
 
-      // Reset form
-      document.getElementById('tf-rek').value = '';
-      document.getElementById('tf-amount').value = '';
-      document.getElementById('tf-note').value = '';
-    }
+  function openPayment(type, title) {
+    lastPaymentScreen = (type === 'Pulsa' || type === 'Paket Data' || type === 'Token Listrik' || type === 'e-Wallet' || type === 'Voucher') ? 'beli' : 'bayar';
+    document.getElementById('payment-title').textContent = title;
+    document.getElementById('payment-label').textContent = type === 'Pulsa' || type === 'Paket Data' ? 'Nomor HP' : 'Nomor Pelanggan / ID';
+    document.getElementById('pay-number').value = '';
+    document.getElementById('pay-amount').value = '';
+    showScreen('payment');
+  }
 
-    function closeModal() {
-      document.getElementById('success-modal').classList.remove('show');
-      showScreen('home');
-    }
+  function goBackFromPayment() {
+    showScreen(lastPaymentScreen);
+  }
 
-    // ========== PWA ==========
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
-  </script>
+  function doPayment() {
+    const number = document.getElementById('pay-number').value.trim();
+    const amount = parseInt(document.getElementById('pay-amount').value);
+    const title = document.getElementById('payment-title').textContent;
+
+    if (!number) return showToast('Nomor wajib diisi');
+    if (!amount || amount <= 0) return showToast('Nominal tidak valid');
+    if (amount > balance) return showToast('Saldo tidak mencukupi');
+
+    balance -= amount;
+    document.getElementById('balance').textContent = formatRupiah(balance);
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) +
+                    ', ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    transactions.unshift({
+      title: `${title} - ${number}`,
+      date: dateStr,
+      amount,
+      type: 'out'
+    });
+    renderTransactions();
+
+    document.getElementById('modal-title').textContent = 'Pembayaran Berhasil!';
+    document.getElementById('success-msg').textContent = `Berhasil membayar ${title} sebesar ${formatRupiah(amount)}`;
+    document.getElementById('success-modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('success-modal').classList.remove('show');
+    showScreen('home');
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
 </body>
 </html>
