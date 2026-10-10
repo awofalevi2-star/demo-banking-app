@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0052cc" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Demo Bank App</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #0052cc;
+      --primary-dark: #003d99;
+      --success: #00a86b;
+      --danger: #e53935;
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ========== LOGIN SCREEN ========== */
+    #login-screen {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0052cc 0%, #003d99 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .login-logo {
+      width: 90px;
+      height: 90px;
+      background: white;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .login-logo i {
+      font-size: 42px;
+      color: var(--primary);
+    }
+
+    .login-title {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      color: rgba(255,255,255,0.8);
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    .login-card {
+      background: white;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:active {
+      background: var(--primary-dark);
+    }
+
+    .demo-hint {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ========== APP CONTAINER ========== */
+    #app {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* Header */
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 20px 20px;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .greeting {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .user-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .notif-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .balance-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .balance-label {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+
+    .balance-amount {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .balance-account {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 20px 16px 90px;
+      overflow-y: auto;
+    }
+
+    /* Quick Menu */
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .quick-menu {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .menu-icon {
+      width: 54px;
+      height: 54px;
+      background: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--primary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .menu-item span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      text-align: center;
+    }
+
+    /* Transaction List */
+    .tx-card {
+      background: white;
+      border-radius: 16px;
+      padding: 4px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .tx-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .tx-item:last-child {
+      border-bottom: none;
+    }
+
+    .tx-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-right: 14px;
+    }
+
+    .tx-icon.in {
+      background: #e6f7ef;
+      color: var(--success);
+    }
+
+    .tx-icon.out {
+      background: #fdecea;
+      color: var(--danger);
+    }
+
+    .tx-info {
+      flex: 1;
+    }
+
+    .tx-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .tx-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tx-amount {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .tx-amount.in {
+      color: var(--success);
+    }
+
+    .tx-amount.out {
+      color: var(--danger);
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 16px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      border-radius: 20px 20px 0 0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item i {
+      font-size: 20px;
+    }
+
+    /* ========== SCREENS ========== */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    /* Transfer Screen */
+    .page-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .page-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .form-card {
+      background: white;
+      margin: 20px 16px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .form-card .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-card label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-card input, .form-card select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .form-card input:focus, .form-card select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Success Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+    }
+
+    .modal-icon {
+      width: 70px;
+      height: 70px;
+      background: #e6f7ef;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+      color: var(--success);
+    }
+
+    .modal h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    /* Profile */
+    .profile-card {
+      background: white;
+      margin: 20px 16px;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 32px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .profile-email {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .menu-list {
+      background: white;
+      margin: 0 16px 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .menu-list-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: pointer;
+    }
+
+    .menu-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-list-item i {
+      width: 36px;
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .menu-list-item span {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .menu-list-item .arrow {
+      color: #d1d5db;
+    }
+
+    .logout-btn {
+      margin: 0 16px 30px;
+      padding: 16px;
+      background: #fdecea;
+      color: var(--danger);
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      width: calc(100% - 32px);
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: #1a1a2e;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      z-index: 300;
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen">
+    <div class="login-logo">
+      <i class="fas fa-university"></i>
+    </div>
+    <h1 class="login-title">Demo Bank</h1>
+    <p class="login-subtitle">Aplikasi Demo Mobile Banking</p>
+
+    <div class="login-card">
+      <div class="form-group">
+        <label>Username / No. Rekening</label>
+        <input type="text" id="login-user" placeholder="Masukkan username" value="demo" />
+      </div>
+      <div class="form-group">
+        <label>Password / PIN</label>
+        <input type="password" id="login-pass" placeholder="Masukkan password" value="123456" />
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Masuk</button>
+      <p class="demo-hint">Gunakan akun demo: <b>demo</b> / <b>123456</b></p>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app">
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+      <div class="header">
+        <div class="header-top">
+          <div>
+            <div class="greeting">Selamat datang,</div>
+            <div class="user-name" id="display-name">Pengguna Demo</div>
+          </div>
+          <div class="notif-btn" onclick="showToast('Tidak ada notifikasi baru')">
+            <i class="fas fa-bell"></i>
+          </div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-label">Saldo Rekening</div>
+          <div class="balance-amount" id="balance">Rp 12.500.000</div>
+          <div class="balance-account">Rekening: 1234 5678 9012</div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="section-title">Menu Cepat</div>
+        <div class="quick-menu">
+          <div class="menu-item" onclick="showScreen('transfer')">
+            <div class="menu-icon"><i class="fas fa-paper-plane"></i></div>
+            <span>Transfer</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Bayar (demo)')">
+            <div class="menu-icon"><i class="fas fa-qrcode"></i></div>
+            <span>Bayar</span>
+          </div>
+          <div class="menu-item" onclick="showToast('Fitur Top Up (demo)')">
+            <div class="menu-icon"><i class="fas fa-wallet"></i></div>
+            <span>Top Up</span>
+          </div>
+          <div class="menu-item" onclick="showScreen('history')">
+            <div class="menu-icon"><i class="fas fa-history"></i></div>
+            <span>Riwayat</span>
+          </div>
+        </div>
+
+        <div class="section-title">Transaksi Terakhir</div>
+        <div class="tx-card" id="recent-tx">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSFER SCREEN -->
+    <div id="transfer-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Transfer</h2>
+      </div>
+      <div class="form-card">
+        <div class="form-group">
+          <label>Bank Tujuan</label>
+          <select id="tf-bank">
+            <option value="BRI">Bank BRI</option>
+            <option value="BCA">Bank BCA</option>
+            <option value="Mandiri">Bank Mandiri</option>
+            <option value="BNI">Bank BNI</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nomor Rekening</label>
+          <input type="text" id="tf-rek" placeholder="Masukkan nomor rekening" />
+        </div>
+        <div class="form-group">
+          <label>Nominal</label>
+          <input type="number" id="tf-amount" placeholder="Rp 0" />
+        </div>
+        <div class="form-group">
+          <label>Catatan (opsional)</label>
+          <input type="text" id="tf-note" placeholder="Contoh: Bayar utang" />
+        </div>
+        <button class="btn-primary" onclick="doTransfer()">Transfer Sekarang</button>
+      </div>
+    </div>
+
+    <!-- HISTORY SCREEN -->
+    <div id="history-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Riwayat Transaksi</h2>
+      </div>
+      <div class="content" style="padding-top: 16px;">
+        <div class="tx-card" id="full-history">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE SCREEN -->
+    <div id="profile-screen" class="screen">
+      <div class="page-header">
+        <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
+        <h2>Profil</h2>
+      </div>
+      <div class="profile-card">
+        <div class="avatar">D</div>
+        <div class="profile-name">Pengguna Demo</div>
+        <div class="profile-email">demo@email.com</div>
+      </div>
+
+      <div class="menu-list">
+        <div class="menu-list-item" onclick="showToast('Fitur Ubah Profil (demo)')">
+          <i class="fas fa-user-edit"></i>
+          <span>Ubah Profil</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <div class="menu-list-item" onclick="showToast('Fitur Keamanan (demo)')">
+          <i class="fas fa-shield-alt"></i>
+          <span>Keamanan & PIN</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <div class="menu-list-item" onclick="showToast('Fitur Bantuan (demo)')">
+          <i class="fas fa-question-circle"></i>
+          <span>Bantuan</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <div class="menu-list-item" onclick="showToast('Versi 1.0.0 - Demo Only')">
+          <i class="fas fa-info-circle"></i>
+          <span>Tentang Aplikasi</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+      </div>
+
+      <button class="logout-btn" onclick="doLogout()">
+        <i class="fas fa-sign-out-alt"></i> Keluar
+      </button>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+      <div class="nav-item active" onclick="showScreen('home')" data-screen="home">
+        <i class="fas fa-home"></i>
+        <span>Beranda</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('transfer')" data-screen="transfer">
+        <i class="fas fa-paper-plane"></i>
+        <span>Transfer</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('history')" data-screen="history">
+        <i class="fas fa-history"></i>
+        <span>Riwayat</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('profile')" data-screen="profile">
+        <i class="fas fa-user"></i>
+        <span>Profil</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal">
+      <div class="modal-icon"><i class="fas fa-check"></i></div>
+      <h3>Transfer Berhasil!</h3>
+      <p id="success-msg">Transaksi kamu telah berhasil diproses.</p>
+      <button class="btn-primary" onclick="closeModal()">Selesai</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ========== DATA ==========
+    let balance = 12500000;
+    let transactions = [
+      { id: 1, title: 'Transfer dari Budi', date: '10 Okt 2026, 09:15', amount: 500000, type: 'in' },
+      { id: 2, title: 'Bayar Listrik PLN', date: '09 Okt 2026, 14:30', amount: 275000, type: 'out' },
+      { id: 3, title: 'Transfer ke Siti', date: '08 Okt 2026, 11:20', amount: 1500000, type: 'out' },
+      { id: 4, title: 'Gaji Bulanan', date: '01 Okt 2026, 08:00', amount: 8500000, type: 'in' },
+      { id: 5, title: 'Top Up GoPay', date: '28 Sep 2026, 19:45', amount: 100000, type: 'out' },
+    ];
+
+    // ========== HELPERS ==========
+    function formatRupiah(num) {
+      return 'Rp ' + num.toLocaleString('id-ID');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ========== LOGIN ==========
+    function doLogin() {
+      const user = document.getElementById('login-user').value.trim();
+      const pass = document.getElementById('login-pass').value.trim();
+
+      if (!user || !pass) {
+        showToast('Username dan Password wajib diisi');
+        return;
+      }
+
+      // Demo: terima semua login
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+      document.getElementById('display-name').textContent = user === 'demo' ? 'Pengguna Demo' : user;
+      renderTransactions();
+      showToast('Berhasil masuk!');
+    }
+
+    function doLogout() {
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+      showScreen('home');
+    }
+
+    // ========== NAVIGATION ==========
+    function showScreen(name) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(name + '-screen').classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      const nav = document.querySelector(`.nav-item[data-screen="${name}"]`);
+      if (nav) nav.classList.add('active');
+
+      if (name === 'history') renderFullHistory();
+    }
+
+    // ========== TRANSACTIONS ==========
+    function renderTransactions() {
+      const container = document.getElementById('recent-tx');
+      const recent = transactions.slice(0, 4);
+      container.innerHTML = recent.map(tx => `
+        <div class="tx-item">
+          <div class="tx-icon ${tx.type}">
+            <i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i>
+          </div>
+          <div class="tx-info">
+            <div class="tx-title">${tx.title}</div>
+            <div class="tx-date">${tx.date}</div>
+          </div>
+          <div class="tx-amount ${tx.type}">
+            ${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderFullHistory() {
+      const container = document.getElementById('full-history');
+      container.innerHTML = transactions.map(tx => `
+        <div class="tx-item">
+          <div class="tx-icon ${tx.type}">
+            <i class="fas fa-${tx.type === 'in' ? 'arrow-down' : 'arrow-up'}"></i>
+          </div>
+          <div class="tx-info">
+            <div class="tx-title">${tx.title}</div>
+            <div class="tx-date">${tx.date}</div>
+          </div>
+          <div class="tx-amount ${tx.type}">
+            ${tx.type === 'in' ? '+' : '-'} ${formatRupiah(tx.amount)}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ========== TRANSFER ==========
+    function doTransfer() {
+      const bank = document.getElementById('tf-bank').value;
+      const rek = document.getElementById('tf-rek').value.trim();
+      const amount = parseInt(document.getElementById('tf-amount').value);
+      const note = document.getElementById('tf-note').value.trim() || 'Transfer';
+
+      if (!rek) {
+        showToast('Nomor rekening wajib diisi');
+        return;
+      }
+      if (!amount || amount <= 0) {
+        showToast('Nominal tidak valid');
+        return;
+      }
+      if (amount > balance) {
+        showToast('Saldo tidak mencukupi');
+        return;
+      }
+
+      // Proses transfer (demo)
+      balance -= amount;
+      document.getElementById('balance').textContent = formatRupiah(balance);
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + 
+                      ', ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      transactions.unshift({
+        id: Date.now(),
+        title: `Transfer ke ${bank} - ${rek}`,
+        date: dateStr,
+        amount: amount,
+        type: 'out'
+      });
+
+      renderTransactions();
+
+      document.getElementById('success-msg').textContent = 
+        `Berhasil transfer ${formatRupiah(amount)} ke rekening ${rek} (${bank})`;
+      document.getElementById('success-modal').classList.add('show');
+
+      // Reset form
+      document.getElementById('tf-rek').value = '';
+      document.getElementById('tf-amount').value = '';
+      document.getElementById('tf-note').value = '';
+    }
+
+    function closeModal() {
+      document.getElementById('success-modal').classList.remove('show');
+      showScreen('home');
+    }
+
+    // ========== PWA ==========
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

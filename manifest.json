@@ -1,0 +1,22 @@
+{
+  "name": "Demo Bank App",
+  "short_name": "DemoBank",
+  "description": "Aplikasi Demo Mobile Banking untuk pembelajaran",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0052cc",
+  "theme_color": "#0052cc",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2830/2830284.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2830/2830284.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
