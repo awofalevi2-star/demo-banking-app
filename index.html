@@ -58,23 +58,17 @@
       border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer;
     }
     .btn-primary:disabled { background: #c5cdd8; cursor: not-allowed; }
-    .btn-outline {
-      width: 100%; padding: 13px; background: transparent; color: var(--primary);
-      border: 1.5px solid var(--primary); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px;
-    }
     .demo-hint { text-align: center; margin-top: 12px; font-size: 12px; color: var(--muted); }
 
     /* MAIN APP */
     #main-app { display: none; min-height: 100vh; flex-direction: column; }
 
-    /* Header Home - mirip BRIMO */
     .header {
       background: linear-gradient(135deg, #0050b3, #0070d4);
       color: white; padding: 14px 16px 18px;
     }
     .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .header-left { display: flex; align-items: center; gap: 8px; }
-    .header-left .logo { font-weight: 800; font-size: 16px; }
     .greeting { font-size: 13px; opacity: 0.95; }
     .user-name { font-size: 15px; font-weight: 700; }
     .header-actions { display: flex; gap: 8px; }
@@ -98,7 +92,6 @@
 
     .content { flex: 1; padding: 14px 14px 95px; overflow-y: auto; }
 
-    /* Quick Menu atas */
     .quick-top {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 6px;
       background: white; border-radius: 14px; padding: 14px 8px; margin-bottom: 12px;
@@ -120,7 +113,6 @@
     .bg-pink { background: linear-gradient(135deg, #d81b60, #ec407a); }
     .bg-red { background: linear-gradient(135deg, #e53935, #f44336); }
 
-    /* Banner promo */
     .promo-row { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
     .promo-card {
       min-width: 160px; background: linear-gradient(135deg, #0050b3, #00a3e0);
@@ -128,7 +120,6 @@
     }
     .promo-card h4 { font-size: 13px; margin-bottom: 3px; }
 
-    /* Menu bawah */
     .quick-bottom {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 6px;
       background: white; border-radius: 14px; padding: 14px 8px; margin-bottom: 16px;
@@ -151,7 +142,6 @@
     .tx-amount.in { color: var(--success); }
     .tx-amount.out { color: var(--danger); }
 
-    /* Bottom Nav */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 100%; max-width: 430px; background: white;
@@ -170,7 +160,6 @@
     .screen { display: none; }
     .screen.active { display: block; }
 
-    /* Page Header */
     .page-header {
       background: var(--primary); color: white; padding: 14px 16px;
       display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 50;
@@ -181,7 +170,6 @@
       display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
 
-    /* Semua Rekening */
     .total-saldo-box {
       background: white; margin: 14px; border-radius: 14px; padding: 18px; text-align: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.04);
@@ -207,7 +195,6 @@
       border-radius: 20px; font-weight: 600;
     }
 
-    /* Form & Transfer styles (simplified) */
     .form-card { background: white; margin: 14px; border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
     .form-card .form-group { margin-bottom: 14px; }
     .form-card label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; display: block; }
@@ -343,10 +330,10 @@
         <a href="#" onclick="showToast('Fitur Ganti Akun (demo)');return false;">Ganti Akun</a>
       </div>
       <div class="form-group">
-        <input type="password" id="login-pass" placeholder="Password" value="123456" oninput="checkLoginBtn()" />
+        <input type="password" id="login-pass" placeholder="Password" oninput="checkLoginBtn()" />
       </div>
-      <button class="btn-primary" id="login-btn" onclick="doLogin()">Login</button>
-      <p class="demo-hint">Password: <b>123456</b> &nbsp;|&nbsp; PIN: <b>123456</b></p>
+      <button class="btn-primary" id="login-btn" onclick="doLogin()" disabled>Login</button>
+      <p class="demo-hint">Password demo: <b>123456</b> &nbsp;|&nbsp; PIN: <b>123456</b></p>
     </div>
   </div>
 
@@ -385,7 +372,6 @@
       </div>
 
       <div class="content">
-        <!-- Menu Atas -->
         <div class="quick-top">
           <div class="menu-item" onclick="showScreen('transfer')">
             <div class="menu-icon bg-blue"><i class="fas fa-paper-plane"></i></div>
@@ -405,7 +391,6 @@
           </div>
         </div>
 
-        <!-- Promo -->
         <div class="promo-row">
           <div class="promo-card">
             <h4>Qita Hadir Lebih Cepat</h4>
@@ -417,7 +402,6 @@
           </div>
         </div>
 
-        <!-- Menu Bawah -->
         <div class="quick-bottom">
           <div class="menu-item" onclick="showToast('Fitur Top Up (demo)')">
             <div class="menu-icon bg-teal"><i class="fas fa-plus-circle"></i></div>
@@ -467,12 +451,10 @@
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
         <h2>Info Saldo</h2>
       </div>
-
       <div class="total-saldo-box">
         <div class="label">Total Saldo</div>
         <div class="amount" id="total-saldo">Rp 16.377.878</div>
       </div>
-
       <div class="rekening-list">
         <div class="rekening-item">
           <div class="rekening-icon"><i class="fas fa-university"></i></div>
@@ -491,13 +473,12 @@
           </div>
         </div>
       </div>
-
       <div style="padding:0 14px 30px">
         <button class="btn-primary" onclick="showToast('Fitur Buka Rekening Baru (demo)')">+ Buka Rekening Baru</button>
       </div>
     </div>
 
-    <!-- TRANSFER LIST -->
+    <!-- TRANSFER + other screens remain the same as previous version -->
     <div id="transfer-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
@@ -515,7 +496,6 @@
       </button>
     </div>
 
-    <!-- NEW RECIPIENT -->
     <div id="new-recipient-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('transfer')"><i class="fas fa-arrow-left"></i></div>
@@ -545,7 +525,6 @@
       </div>
     </div>
 
-    <!-- NOMINAL -->
     <div id="nominal-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('new-recipient')"><i class="fas fa-arrow-left"></i></div>
@@ -572,7 +551,6 @@
       </div>
     </div>
 
-    <!-- KONFIRMASI -->
     <div id="confirm-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('nominal')"><i class="fas fa-arrow-left"></i></div>
@@ -594,7 +572,6 @@
       </div>
     </div>
 
-    <!-- PIN -->
     <div id="pin-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('confirm')"><i class="fas fa-arrow-left"></i></div>
@@ -624,7 +601,6 @@
       </div>
     </div>
 
-    <!-- RECEIPT -->
     <div id="receipt-screen" class="screen">
       <div class="receipt-header">
         <div class="receipt-check"><i class="fas fa-check"></i></div>
@@ -646,7 +622,6 @@
       </div>
     </div>
 
-    <!-- HISTORY -->
     <div id="history-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
@@ -657,7 +632,6 @@
       </div>
     </div>
 
-    <!-- PROFILE -->
     <div id="profile-screen" class="screen">
       <div class="page-header">
         <div class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i></div>
@@ -675,14 +649,13 @@
         <div class="menu-list-item" onclick="showToast('Fitur Keamanan (demo)')">
           <i class="fas fa-shield-alt"></i><span>Keamanan & PIN</span><i class="fas fa-chevron-right arrow"></i>
         </div>
-        <div class="menu-list-item" onclick="showToast('Versi 1.4.0 - Demo Only')">
+        <div class="menu-list-item" onclick="showToast('Versi 1.4.1 - Demo Only')">
           <i class="fas fa-info-circle"></i><span>Tentang Aplikasi</span><i class="fas fa-chevron-right arrow"></i>
         </div>
       </div>
       <button class="logout-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Keluar</button>
     </div>
 
-    <!-- BOTTOM NAV -->
     <div class="bottom-nav" id="bottom-nav">
       <div class="nav-item active" onclick="showScreen('home')" data-screen="home">
         <i class="fas fa-home"></i><span>Home</span>
@@ -743,6 +716,8 @@
   }
 
   function doLogin() {
+    const pass = document.getElementById('login-pass').value;
+    if (pass.length < 4) return showToast('Password terlalu pendek');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('main-app').style.display = 'flex';
     renderTransactions();
@@ -753,6 +728,8 @@
   function doLogout() {
     document.getElementById('main-app').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('login-pass').value = '';
+    checkLoginBtn();
     showScreen('home');
   }
 
